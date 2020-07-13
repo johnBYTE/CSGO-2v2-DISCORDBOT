@@ -558,10 +558,7 @@ async def change_password(server, t1=[], t2=[]):
 
         os.remove(final_name)
 
-    with valve.rcon.RCON(address[0], address[1]) as rcon:
-        response = rcon.execute('sv_password ' + str(new_pass))
-        #response = rcon.execute("sm_map mirage")
-        print(str(response))
+
 
     if t1 != []:
         serverip = discord.Embed(description=f"```\nconnect {ip}; password {new_pass}```" ,color = 0xfe4040)
@@ -880,7 +877,7 @@ class Blacklist:
         self.expire_time = expire_time
         self.user = user
 
-maplist = ['inferno', 'shortnuke', 'overpass', 'shortdust', 'train', 'rialto', 'de_cbble', 'lake']
+maplist = ['inferno', 'shortnuke', 'overpass', 'shortdust', 'train', 'rialto', 'cbble', 'lake']
 class Game:
     def __init__(self , team1 , team2 , hoster , waiting_players):
         self.game_id = len(running_games_list) + len(ended_games_list) + 1
@@ -898,7 +895,7 @@ class Game:
         self.turn = None
         self.elox = 1
         self.veto_stage = False
-        self.maps = ['inferno', 'shortnuke', 'overpass', 'shortdust', 'train', 'rialto', 'cbble', 'lake']
+        self.maps = ['de_inferno', 'de_shortnuke', 'de_overpass', 'de_shortdust', 'de_train', 'de_rialto', 'de_cbble', 'de_lake']
         self.game_id = 0
         self.embed_msg = ''
         self.stats_msg = ''
@@ -943,10 +940,9 @@ async def on_member_remove(member):
 @bot.event
 async def on_ready():
       #  await change_map('mirage',1)
-      #  try:
-        await change_password(1)
-      #  except:
-      #      pass
+
+
+        print('oopies')
       #  await change_map('inferno', 1)
        # await change_password(2)
 
