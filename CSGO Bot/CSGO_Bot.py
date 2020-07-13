@@ -22,8 +22,11 @@ import string
 import time
 import math
 import os
+import socket
+
+
 ranks = ['https://i.imgur.com/YlkddRr.jpg', 'https://i.imgur.com/vlLGymA.jpg', 'https://i.imgur.com/wqF7lME.jpg', 'https://i.imgur.com/EzSgWUW.jpg', 'https://imgur.com/1CtvVCC', 'https://i.imgur.com/Yd1D5N7.jpg', 'https://i.imgur.com/043aoWH.jpg', 'https://i.imgur.com/jLftEZf.jpg', 'https://i.imgur.com/hmZ0p0w.jpg', 'https://i.imgur.com/dYFF57X.jpg', 'https://i.imgur.com/UfBQcpR.jpg', 'https://i.imgur.com/17kz6wy.jpg', 'https://i.imgur.com/bs4bHft.jpg', 'https://i.imgur.com/UR4es3m.jpg', 'https://i.imgur.com/MaCMLLI.jpg', 'https://i.imgur.com/mCzaEHx.jpg', 'https://i.imgur.com/o47ORQW.jpg', 'https://i.imgur.com/eohQA1g.jpg'] 
-main_logo = 'https://cdn.discordapp.com/attachments/725118433439645819/725490392736465056/2v2.png'
+main_logo = 'https://cdn.discordapp.com/attachments/722640766782013492/732065780757299290/rat.png'
 
 csgo_logo = 'https://cdn.discordapp.com/attachments/265291806999052288/715765438897848360/ZfAJNyw.png'
 
@@ -42,16 +45,16 @@ player_list = []
 running_games_list = []
 ended_games_list = []
 suggestions = []
-average_perms = ["724754012364079155","724754013085630535","724754014184407141","724754019268165653"]
-middle_perms = ["724754013085630535","724754014184407141","724754019268165653"]
-high_perms = ["724754014184407141","724754019268165653"]
+average_perms = ["731546766880800869","731546790720962620","731546823931723867","732032365274333256", "731546707245924464"]
+middle_perms = ["731546790720962620","731546823931723867","732032365274333256", "731546707245924464"]
+high_perms = ["731546823931723867","732032365274333256", "731546707245924464"]
 
 
 server0_pass = ''
 server1_pass = ''
 server2_pass = ''
 server3_pass = ''
-
+sv_id = '731546615667490856'
 async def removeroles(team1, team2):
     for i in bot.servers:
         server1 = i
@@ -123,6 +126,61 @@ async def randomPass_west():
     string_lol = ''
     letters = string.ascii_uppercase 
     return ''.join(random.choice(letters) for i in range(8))
+
+
+
+@bot.event
+async def on_command_error(error, ctx):
+    print(error)
+    embed = discord.Embed(title='Error', description = str(error), colour=0xe74c3c) #Red
+    embed.timestamp = datetime.datetime.utcnow()
+    msg4 = await bot.send_message(ctx.message.channel, embed=embed)
+
+    await asyncio.sleep(3)
+    try:
+        await bot.delete_message(ctx.message)
+    except:
+        pass 
+    await bot.delete_message(msg4)
+
+
+
+
+
+
+
+
+
+
+@bot.event
+async def send_error(error, ctx, chan=''):
+    print('dude')
+
+
+    if error == 'wrong_chan':
+        embed = discord.Embed(title='Error', colour=0xe74c3c) #Red
+        if chan != '':
+            embed.description = value=f'This channel can not be used for the specifed command. Use {chan.mention}.'
+        else:
+            embed.description = f'This channel can not be used for the specifed command.'
+
+        embed.timestamp = datetime.datetime.utcnow()
+    if error == 'no_perms':
+        embed = discord.Embed(title='Event Error', colour=0xe74c3c) #Red
+        embed.description = 'You do not have the permissions to do this! Make a ticket if you think this is a mistake.'
+        embed.timestamp = datetime.datetime.utcnow()
+
+    msg4 = await bot.send_message(ctx.message.channel, embed=embed)
+
+    await asyncio.sleep(3)
+    try:
+        await bot.delete_message(ctx.message)
+    except:
+        pass 
+    try:
+        await bot.delete_message(msg4)
+    except:
+        pass
 
 async def change_map(finalmap, server, over=True):
 
@@ -209,21 +267,21 @@ async def change_map(finalmap, server, over=True):
         do_ftp = True
     if int(server) == 1:
 
+        
 
-
-        ftp_add = 'twoversustwo.game.nfoservers.com'
-        ftp_port = 21
-        ftp_cred = ['twoversustwo', 'RyzjgXZGqD6GgWy']
-        ftp_direct = '/csgo'
+        ftp_add = '173.234.27.50'
+        ftp_port = 8821
+        ftp_cred = ['john', 'ASFK)(2490129erJIASf']
+        ftp_direct = '/173.234.27.50_27015'
 
 
 
 
         final_name = 'Match.cfg'
         
-        address = [("twoversustwo.game.nfoservers.com", 27015), 'nC9nLQ83274HPFhfhI424']
+        address = [("173.234.27.50", 27015), 'FASKOfko124ko']
 
-        ip = 'twoversustwo.game.nfoservers.com:27015'
+        ip = '173.234.27.50:27015'
 
         do_ftp = True
 
@@ -335,8 +393,8 @@ async def change_password(server, t1=[], t2=[]):
     print(str(new_pass))
     do_ftp = False
 
-
-
+    ftp_add = '173.234.27.50:8821'
+    ftp_add = '173.234.27.50:8821'
     #server = 2
     print(str(server))
     if int(server) == 2:
@@ -394,21 +452,21 @@ async def change_password(server, t1=[], t2=[]):
         server2_pass = new_pass
         do_ftp = True
     if int(server) == 1:
-        ftp_add = 'twoversustwo.game.nfoservers.com'
-        ftp_port = 21
-        ftp_cred = ['twoversustwo', 'RyzjgXZGqD6GgWy']
-        ftp_direct = '/csgo/cfg'
+        ftp_add = '173.234.27.50'
+        ftp_port = 8821
+        ftp_cred = ['john', 'ASFK)(2490129erJIASf']
+        ftp_direct = '/173.234.27.50_27015/cfg'
+        
 
-
-
+        
 
         final_name = 'server.cfg'
         
-        address = [("twoversustwo.game.nfoservers.com", 27015), 'nC9nLQ83274HPFhfhI424']
+        address = [("173.234.27.50", 27015), 'FASKOfko124ko']
+        
+        ip = '173.234.27.50:27015'
 
-        ip = 'twoversustwo.game.nfoservers.com:27015'
-
-        strip_num = 5
+        strip_num = 17
 
         server0_pass = new_pass
         do_ftp = True
@@ -433,8 +491,6 @@ async def change_password(server, t1=[], t2=[]):
         print(str(response))
  #   except:
         #print('y fail " (') 
-
-
 
     if do_ftp:
         my_ftp = FTP()
@@ -577,9 +633,9 @@ async def oldpasschangeIGNORE(server, t1=[], t2=[]):
 
 
 
-        ftp_add = 'twoversustwo.game.nfoservers.com'
+        ftp_add = '173.234.27.50:8821'
         ftp_port = 21
-        ftp_cred = ['twoversustwo', 'RyzjgXZGqD6GgWy']
+        ftp_cred = ['john', 'ASFK)(2490129erJIASf']
         ftp_direct = '/csgo/cfg'
 
 
@@ -587,9 +643,9 @@ async def oldpasschangeIGNORE(server, t1=[], t2=[]):
 
         final_name = 'server.cfg'
         
-        address = [("twoversustwo.game.nfoservers.com", 27015), 'nC9nLQ83274HPFhfhI424']
+        address = [("173.234.27.50", 27015), 'FASKOfko124ko']
 
-        ip = 'twoversustwo.game.nfoservers.com:27015'
+        ip = '173.234.27.50:27015'
 
         strip_num = 5
 
@@ -887,8 +943,12 @@ async def on_member_remove(member):
 @bot.event
 async def on_ready():
       #  await change_map('mirage',1)
+      #  try:
         await change_password(1)
-        await change_password(2)
+      #  except:
+      #      pass
+      #  await change_map('inferno', 1)
+       # await change_password(2)
 
         await bot.change_presence(game=discord.Game(url="https://www.twitch.tv/pokimane", type=1, name='!commands'))
 
@@ -1034,9 +1094,9 @@ async def blackinfo(ctx):
 
 @bot.command(pass_context = True, aliases=['top'])
 async def leaderboard(ctx , page = 1):
-    if ctx.message.channel.name != "stats":
-       stats_channel = discord.utils.get(ctx.message.server.channels, id="709107232830259240")
-       return await bot.say(f"You can only use this command in {stats_channel.mention}")
+    if ctx.message.channel.id != "731548765365993602":
+       stats_channel = discord.utils.get(ctx.message.server.channels, id="731548765365993602")
+       return await bot.say(f"You can only use this command in {stats_channel.mention}", delete_after=3.0)
 
     
     page = max(1,page)
@@ -1092,8 +1152,9 @@ async def leaderboard(ctx , page = 1):
 
 @bot.command(pass_context = True)
 async def stats(ctx , user: discord.Member = None):
-    if ctx.message.channel.name != "stats":
-        return await bot.say("You can only use this command in #stats-leaderboard", delete_after=3.0)
+    if ctx.message.channel.id != "731548765365993602":
+       stats_channel = discord.utils.get(ctx.message.server.channels, id="731548765365993602")
+       return await bot.say(f"You can only use this command in {stats_channel.mention}", delete_after=3.0)
     user = ctx.message.author if not user else user
     await update_leaderboard()
     await save_players()
@@ -1175,6 +1236,9 @@ async def stats(ctx , user: discord.Member = None):
 
 @bot.command(pass_context = True)
 async def rank(ctx , rank):
+    if ctx.message.channel.id != "731548765365993602":
+       stats_channel = discord.utils.get(ctx.message.server.channels, id="731548765365993602")
+       return await bot.say(f"You can only use this command in {stats_channel.mention}", delete_after=3.0)
     await update_leaderboard()
     y = None
     rank = int(rank)
@@ -1467,7 +1531,7 @@ async def changepassword(ctx):
     if not await is_allowed(ctx.message.author , average_perms):
         return
 
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "725499864854560818":
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "731549277171482756":
         match_channel_number = 1
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         match_channel_number = 2
@@ -1483,8 +1547,10 @@ async def changepassword(ctx):
 
  
     final = [ctx.message.author]
-
-    await change_password(int(server_num), final)
+    try:
+        await change_password(int(server_num), final)
+    except:
+        print('a')
 
 
 
@@ -1538,8 +1604,8 @@ async def penisbattle(ctx , member:discord.User):
 
 @bot.command(pass_context = True)
 async def test(ctx):
-    team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-    team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
+    team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+    team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
 
     team1_role = discord.utils.get(ctx.message.server.roles, id = team1_role_lst[2 - 1])
     team2_role = discord.utils.get(ctx.message.server.roles, id = team2_role_lst[2 - 1])
@@ -1577,10 +1643,10 @@ async def changemap(ctx, arg1=''):
 
    # if arg1 == '':
    #     await bot.say('Please specify a map.')
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '725499864854560818':
-        canal1 = discord.utils.get(ctx.message.server.channels, id="725499864854560818")
-        canal2 = discord.utils.get(ctx.message.server.channels, id="709107214564196393")
-        queue = discord.utils.get(ctx.message.server.channels, id="709107209581232309")
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '731549277171482756':
+        canal1 = discord.utils.get(ctx.message.server.channels, id="731549277171482756")
+        canal2 = discord.utils.get(ctx.message.server.channels, id="731549382792708098")
+        queue = discord.utils.get(ctx.message.server.channels, id="731549277171482756")
         match_channel_number = 1
         is_2v2 = True
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
@@ -1629,16 +1695,16 @@ async def host(ctx):
     except:
         final_av = ctx.message.author.default_avatar_url
 
-    team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-    team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
+    team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+    team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
 
 
 
     
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '725499864854560818':
-        canal1 = discord.utils.get(ctx.message.server.channels, id="725499864854560818")
-        canal2 = discord.utils.get(ctx.message.server.channels, id="709107214564196393")
-        queue = discord.utils.get(ctx.message.server.channels, id="709107209581232309")
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '731549277171482756':
+        canal1 = discord.utils.get(ctx.message.server.channels, id="731549361476993024")
+        canal2 = discord.utils.get(ctx.message.server.channels, id="731549382792708098")
+        queue = discord.utils.get(ctx.message.server.channels, id="731549317801836577")
         match_channel_number = 1
         is_2v2 = True
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
@@ -1695,6 +1761,7 @@ async def host(ctx):
     running_games_list.append(newgame)
 
 
+    
 
 
     if match_channel_number == 2:
@@ -1888,7 +1955,7 @@ async def host(ctx):
         for i in range(len(game.maps)):
             if game.maps[i] != -1:
                 game_maps += f"{i + 1}: {game.maps[i]}" + "\n"
-        game_maps += 'Type the number next to the map!'
+        game_maps += 'Good luck on 64 tick!'
         embed2 = discord.Embed(title = '5v5' if number_of_players == 10 else '2v2' , color = discord.Color.dark_orange(), timestamp=datetime.datetime.utcnow())
         if len(waiting_players) != 0:
             embed2.add_field(name="Remaning Pick Pool", value=f"```yaml\n{waiting_players}```", inline=True)
@@ -1955,9 +2022,19 @@ async def host(ctx):
 
     await bot.edit_message(embed_edit, embed=embed3)
     
+    try:
+        await change_password(game.match_channel_number, game.team1, game.team2)
 
-    await change_password(game.match_channel_number, game.team1, game.team2)
-    await change_map(final_map, game.match_channel_number)
+    except:
+        await bot.say('```css\n[DEBUG] Bot was not able to change the password as the server is down.\n```')
+
+
+
+    try:
+        await change_map(final_map, game.match_channel_number)
+
+    except:
+        await bot.say('```css\n[DEBUG] Bot was not able to change the map as the server is down.\n```')
 
     str3 = ''
     for x in game.team1:
@@ -1967,10 +2044,18 @@ async def host(ctx):
             
             await bot.add_roles(x,team1_role)
             #await bot.send_message(x ,embed=serverip)
-            await bot.move_member(x, canal1)
+
 
         except:
             continue
+        try:
+            await bot.move_member(x, canal1)
+            await bot.say(f'```css\n{x.name} has been moved to {canal1.name}.\n```', delete_after=5)
+        except:
+            await bot.say(f'```css\n{x.name} is not in a vc.\n```', delete_after=5)
+            continue
+
+
     await asyncio.sleep(0.5)
 
     for y in game.team2:
@@ -1980,9 +2065,16 @@ async def host(ctx):
             
             await bot.add_roles(y,team2_role)
             #await bot.send_message(y ,embed=serverip)
-            await bot.move_member(y, canal2)
+            
 
         except:
+            continue
+
+        try:
+            await bot.move_member(y, canal2)
+            await bot.say(f'```css\n{y.name} has been moved to {canal2.name}.\n```', delete_after=5)
+        except:
+            await bot.say(f'```css\n{y.name} is not in a vc.\n```', delete_after=5)
             continue
 
 
@@ -2029,12 +2121,12 @@ async def twovtwo(ctx, user: discord.Member, user1: discord.Member, user2: disco
         final_av = f"https://cdn.discordapp.com/avatars/{ctx.message.author.id}/" + final[0] + '.png' + '?size=256&f=.png'
     except:
         final_av = ctx.message.author.default_avatar_url
-    team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-    team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '725499864854560818':
-        canal1 = discord.utils.get(ctx.message.server.channels, id="709107212622102580")
-        canal2 = discord.utils.get(ctx.message.server.channels, id="709107214564196393")
-        queue = discord.utils.get(ctx.message.server.channels, id="709107209581232309")
+    team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+    team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '731549277171482756':
+        canal1 = discord.utils.get(ctx.message.server.channels, id="731549361476993024")
+        canal2 = discord.utils.get(ctx.message.server.channels, id="731549382792708098")
+        queue = discord.utils.get(ctx.message.server.channels, id="731549277171482756")
         match_channel_number = 1
         is_2v2 = True
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
@@ -2350,10 +2442,18 @@ async def twovtwo(ctx, user: discord.Member, user1: discord.Member, user2: disco
             
             await bot.add_roles(x,team1_role)
             #await bot.send_message(x ,embed=serverip)
-            await bot.move_member(x, canal1)
+
 
         except:
             continue
+        try:
+            await bot.move_member(x, canal1)
+            await bot.say(f'```css\n{x.name} has been moved to {canal1.name}.\n```', delete_after=5)
+        except:
+            await bot.say(f'```css\n{x.name} is not in a vc.\n```', delete_after=5)
+            continue
+
+
     await asyncio.sleep(0.5)
 
     for y in game.team2:
@@ -2363,9 +2463,16 @@ async def twovtwo(ctx, user: discord.Member, user1: discord.Member, user2: disco
             
             await bot.add_roles(y,team2_role)
             #await bot.send_message(y ,embed=serverip)
-            await bot.move_member(y, canal2)
+            
 
         except:
+            continue
+
+        try:
+            await bot.move_member(y, canal2)
+            await bot.say(f'```css\n{y.name} has been moved to {canal2.name}.\n```', delete_after=5)
+        except:
+            await bot.say(f'```css\n{y.name} is not in a vc.\n```', delete_after=5)
             continue
 
 
@@ -2423,7 +2530,7 @@ async def on_message(message):
 
 
 
-    if(message.channel.name == "hosting-server1" or message.channel.name == "hosting-server2" or message.channel.name == "hosting-server3" or message.channel.name == "hosting-server4"  or message.channel.name == "hosting-server-oldhvh1" or message.channel.name == "hosting-5v5" or message.channel.id == "729821342215438408" or message.channel.id == '725499864854560818' and not message.author.bot ):
+    if(message.channel.name == "hosting-server1" or message.channel.name == "hosting-server2" or message.channel.name == "hosting-server3" or message.channel.name == "hosting-server4"  or message.channel.name == "hosting-server-oldhvh1" or message.channel.name == "hosting-5v5" or message.channel.id == "729821342215438408" or message.channel.id == '731549277171482756' and not message.author.bot ):
         if message.channel.name in cooldown and content == "!host":
             try:
                 await bot.delete_message(message)
@@ -2612,10 +2719,10 @@ async def redraft(ctx):
                 i.veto_stage = False
                 i.picks = 0
 
-                sv = bot.get_server("724753968508698674")
+                sv = bot.get_server(sv_id)
                 bot_commands_chan = discord.utils.get(sv.channels, name="5v5-logs")
-                team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-                team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
+                team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+                team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
 
                 match_channel_number = 0
 
@@ -2624,7 +2731,7 @@ async def redraft(ctx):
                 queue = None
                 is_2v2 = True
 
-                if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '725499864854560818':
+                if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '731549277171482756':
                     canal1 = discord.utils.get(ctx.message.server.channels, id="696477335742054483")
                     canal2 = discord.utils.get(ctx.message.server.channels, id="696477335742054482")
                     queue = discord.utils.get(ctx.message.server.channels, id="696477335742054481")
@@ -2676,7 +2783,7 @@ async def forcedrop(ctx , number):
         await bot.say("The syntax is: !forcedrop PLAYER_NUMBER. Like !forcedrop 1")
     match_channel_number = 0
 
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "725499864854560818":
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "731549277171482756":
         match_channel_number = 1
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         match_channel_number = 2
@@ -2713,8 +2820,8 @@ async def leave(ctx):
 
 @bot.command(pass_context = True)
 async def game(ctx , result):
-    team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-    team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
+    team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+    team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
     print('hello?')
     sv = bot.get_server(ctx.message.server.id)
     await bot.delete_message(ctx.message)
@@ -2722,7 +2829,7 @@ async def game(ctx , result):
         return
     match_channel_number = 0
 
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '725499864854560818':
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '731549277171482756':
         match_channel_number = 1
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         match_channel_number = 2
@@ -2925,7 +3032,7 @@ async def password(ctx):
     if not await is_allowed(ctx.message.author , average_perms):
         return
 
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '725499864854560818':
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '731549277171482756':
         server_num = 1
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         server_num = 2
@@ -2943,9 +3050,9 @@ async def password(ctx):
 
     #player = get(member.guild.roles, name='player')
     if int(server_num) == 1: #5v5 server 2
-        ftp_add = 'twoversustwo.game.nfoservers.com'
+        ftp_add = '173.234.27.50:8821'
         ftp_port = 21
-        ftp_cred = ['twoversustwo', 'RyzjgXZGqD6GgWy']
+        ftp_cred = ['john', 'ASFK)(2490129erJIASf']
         ftp_direct = '/csgo/cfg'
 
 
@@ -2953,9 +3060,9 @@ async def password(ctx):
 
         final_name = 'server.cfg'
         
-        address = [("twoversustwo.game.nfoservers.com", 27015), 'nC9nLQ83274HPFhfhI424']
+        address = [("173.234.27.50", 27015), 'FASKOfko124ko']
 
-        ip = 'twoversustwo.game.nfoservers.com:27015'
+        ip = '173.234.27.50:27015'
 
         strip_num = 5
 
@@ -3052,7 +3159,7 @@ async def resendpw(ctx):
     if not await is_allowed(ctx.message.author , average_perms):
         return
 
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '725499864854560818':
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '731549277171482756':
         server_num = 1
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         server_num = 2
@@ -3210,7 +3317,7 @@ async def removeblacklist(ctx ,user: discord.Member):
 async def join(ctx):
     number = 0
 
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "725499864854560818":
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "731549277171482756":
         number = 1
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         number = 2
@@ -3262,7 +3369,7 @@ async def forcejoin(ctx,user: discord.Member = None):
     if user == None:
         return await bot.say("You have to specifiy the person you want to forcejoin")
 
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "725499864854560818":
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "731549277171482756":
         number = 1
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         number = 2
@@ -3305,19 +3412,128 @@ async def forcejoin(ctx,user: discord.Member = None):
     await bot.delete_message(ctx.message)
 
 
+
+@bot.command(pass_context = True)
+async def forcecaptains(ctx, arg1 : discord.Member, arg2 : discord.Member):
+    if not await is_allowed(ctx.message.author , average_perms):
+            return
+    for i in running_games_list:
+        if not i.game_has_ended and i.game_join_stage_ended and not i.game_has_started:
+            if i.msg_channel == ctx.message.channel.id:
+                for x in i.waiting_players:
+                    if x == -1:
+                        i.waiting_players.remove(x)
+
+                for x in i.team1:
+                    i.waiting_players.append(x)
+
+                for x in i.team2:
+                    i.waiting_players.append(x)
+
+                i.team1 = []
+                i.team2 = []
+                oldcapt1 = i.captain_team1
+                oldcapt2 = i.captain_team2
+                capt1 = i.captain_team1
+                capt2 = i.captain_team2
+                waiting = []
+
+                while( (capt1 == oldcapt1 or capt1 == oldcapt2) and (capt2 == oldcapt2 or capt2 == oldcapt1) ):
+                    waiting = []
+                    for t in i.waiting_players:
+                        waiting.append(t)
+
+                    if not arg1 in waiting and not arg2 in waiting:
+                        await bot.say(f'{arg1} and {arg2} is not in the queue!', delete_after=8.0)
+
+                    if not arg1 in waiting:
+                        await bot.say(f'{arg1} is not in the queue!', delete_after=8.0)
+
+                    if not arg2 in waiting:
+                        await bot.say(f'{arg2} is not in the queue!', delete_after=8.0)
+
+                    capt1 = arg1
+                    waiting.remove(capt1)
+                    capt2 = arg2
+                    waiting.remove(capt2)
+
+                capt1_index = 0
+                capt2_index = 0
+                i.waiting_players.remove(capt1)
+                i.waiting_players.remove(capt2)
+
+                i.team1.append(capt1)
+                i.team2.append(capt2)
+                i.captain_team1 = capt1
+                i.captain_team2 = capt2
+
+
+
+
+                i.update_this_tick = True
+                i.turn = i.captain_team1
+                i.veto_stage = False
+                i.picks = 0
+
+                sv = bot.get_server(sv_id)
+                bot_commands_chan = discord.utils.get(sv.channels, name="5v5-logs")
+    
+                team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+                team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
+
+                match_channel_number = 0
+
+                canal1 = None
+                canal2 = None
+                queue = None
+                is_2v2 = True
+
+                if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == '731549277171482756':
+                    canal1 = discord.utils.get(ctx.message.server.channels, id="731549361476993024")
+                    canal2 = discord.utils.get(ctx.message.server.channels, id="731549382792708098")
+                    queue = discord.utils.get(ctx.message.server.channels, id="731549277171482756")
+
+                    match_channel_number = 1
+                    is_2v2 = False
+                elif ctx.message.channel.name == "hosting-server2":
+                    canal1 = discord.utils.get(ctx.message.server.channels, id="696477335742054487")
+                    canal2 = discord.utils.get(ctx.message.server.channels, id="696477335742054488")
+                    queue = discord.utils.get(ctx.message.server.channels, id="696477335742054486")
+                    match_channel_number = 2
+                    is_2v2 = False
+                elif ctx.message.channel.name == "hosting-server3":
+                    canal1 = discord.utils.get(ctx.message.server.channels, id="696478430505730059")
+                    canal2 = discord.utils.get(ctx.message.server.channels, id="696478489473318914")
+                    queue = discord.utils.get(ctx.message.server.channels, id="701856677846057000")
+                    match_channel_number = 3
+                    is_2v2 = True
+                elif ctx.message.channel.name == "hosting-server4":
+                    canal1 = discord.utils.get(ctx.message.server.channels, id="696479503349842000")
+                    canal2 = discord.utils.get(ctx.message.server.channels, id="696479557628329995")
+                    queue = discord.utils.get(ctx.message.server.channels, id="696479375289352242")
+                    match_channel_number = 4
+                    is_2v2 = False
+                else:
+                    return await send_error('wrong_chan', ctx)
+                    await bot.send_message(bot_commands_chan, f'Game #{i.game_id} has been redrafted; request from {ctx.message.author.mention}')
+                team1_role = discord.utils.get(ctx.message.server.roles, id = team1_role_lst[match_channel_number - 1])
+                team2_role = discord.utils.get(ctx.message.server.roles, id = team2_role_lst[match_channel_number - 1])
+
+                await removeroles(team1_role, team2_role)
+
 @bot.command(pass_context = True, aliases=['end'])
 async def cancel(ctx):
     games = []
     if not await is_allowed(ctx.message.author , average_perms):
         return
-    team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-    team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
+    team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+    team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
     number = 0
-    sv = bot.get_server("724753968508698674")
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "725499864854560818":
+    sv = bot.get_server(sv_id)
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "731549277171482756":
         number = 1
-        ch = discord.utils.get(sv.channels, id="725499864854560818")
-        queue = discord.utils.get(sv.channels, id="709107209581232309")
+        ch = discord.utils.get(sv.channels, id="731549277171482756")
+        queue = discord.utils.get(sv.channels, id="731549277171482756")
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         number = 2
         ch = discord.utils.get(sv.channels, name="hosting-server2")
@@ -3387,15 +3603,15 @@ async def forcecancel(ctx):
     if not await is_allowed(ctx.message.author , average_perms):
         return
 
-    sv = bot.get_server("724753968508698674")
-    team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-    team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
+    sv = bot.get_server(sv_id)
+    team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+    team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
 
     number = 0
-    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "725499864854560818":
+    if ctx.message.channel.name == "hosting-server1" or ctx.message.channel.id == "731549277171482756":
         number = 1
         ch = discord.utils.get(sv.channels, name="hosting-server1")
-        queue = discord.utils.get(sv.channels, id="709107209581232309")
+        queue = discord.utils.get(sv.channels, id="731549277171482756")
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
         number = 2
         ch = discord.utils.get(sv.channels, name="hosting-server2")
@@ -3473,10 +3689,10 @@ async def replace(ctx, user1: discord.Member = None , user2: discord.Member = No
 
     number = 0
 
-    if ctx.message.channel.name == "queue" or ctx.message.channel.id == "725499864854560818":
-        canal1 = discord.utils.get(ctx.message.server.channels, id="709107212622102580")
-        canal2 = discord.utils.get(ctx.message.server.channels, id="709107214564196393")
-        queue = discord.utils.get(ctx.message.server.channels, id="709107209581232309")
+    if ctx.message.channel.name == "queue" or ctx.message.channel.id == "731549277171482756":
+        canal1 = discord.utils.get(ctx.message.server.channels, id="731549361476993024")
+        canal2 = discord.utils.get(ctx.message.server.channels, id="731549382792708098")
+        queue = discord.utils.get(ctx.message.server.channels, id="731549277171482756")
         number = 1
 
     if ctx.message.channel.name == "hosting-server2" or ctx.message.channel.id == '729821342215438408':
@@ -3552,9 +3768,9 @@ async def replace(ctx, user1: discord.Member = None , user2: discord.Member = No
         return await bot.say(f"{user2.name} is already part of a team!")
 
 
-    team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-    team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
-    sv = bot.get_server("724753968508698674")
+    team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+    team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
+    sv = bot.get_server(sv_id)
     team1_role = discord.utils.get(sv.roles, id = team1_role_lst[number - 1])
     team2_role = discord.utils.get(sv.roles, id = team2_role_lst[number - 1])
     try:
@@ -3623,8 +3839,8 @@ async def startgameimage(game , ctx):
     mult = 0
     number3 = 0
     number4 = 0
-    sv = bot.get_server("724753968508698674")
-    ch2 = discord.utils.get(sv.channels, name="gm")
+    sv = bot.get_server(sv_id)
+    ch2 = discord.utils.get(sv.channels, id="731548702560354324")
     font = ImageFont.truetype("arial.ttf", 28)
     if game.is_2v2:
         number = 190
@@ -3748,9 +3964,9 @@ async def startgameimage(game , ctx):
 
 
 async def endgameimage(game):
-    team1_role_lst = ["724754010573111296",  "729363219151454279", "724754010573111296", "724754010573111296"]
-    team2_role_lst = ["724754011164639412",  "729363380170784789", "724754011164639412", "724754011164639412"]
-    sv = bot.get_server("724753968508698674")
+    team1_role_lst = ["731548884492484649",  "729363219151454279", "731548884492484649", "731548884492484649"]
+    team2_role_lst = ["731548958945443841",  "729363380170784789", "731548958945443841", "731548958945443841"]
+    sv = bot.get_server(sv_id)
 
     im = Image.open("unknown.png")
     number = 0
@@ -3777,11 +3993,11 @@ async def endgameimage(game):
     ch = None
     queue = None
 
-    results = discord.utils.get(sv.channels, id="725608518530367558")
+    results = discord.utils.get(sv.channels, id="731548702560354324")
 
     if game.match_channel_number == 1:
-        ch = discord.utils.get(sv.channels, id="725499864854560818")
-        queue = discord.utils.get(sv.channels, id="717473190359597066")
+        ch = discord.utils.get(sv.channels, id="731549277171482756")
+        queue = discord.utils.get(sv.channels, id="731549277171482756")
 
     if game.match_channel_number == 2:
         ch = discord.utils.get(sv.channels, name="hosting-server2")
@@ -3793,7 +4009,7 @@ async def endgameimage(game):
         ch = discord.utils.get(sv.channels, name="hosting-server4")
         queue = discord.utils.get(sv.channels, id="691746601558867988")
 
-    sv = bot.get_server("724753968508698674")
+    sv = bot.get_server(sv_id)
 
     print('almost')
     team1_role = discord.utils.get(sv.roles, id = team1_role_lst[game.match_channel_number - 1])
@@ -3804,7 +4020,38 @@ async def endgameimage(game):
 
     except:
         print('error')
-    #await bot.send_message(ch , f"Game #{game.game_id} results.\nWinning Team:")
+
+    for x in game.team1:
+        try:
+           
+            bot.remove_roles(x,team1_role)
+            print('r t1')
+        except:
+            continue         
+        try:
+
+           await bot.move_member(x, queue)
+           await ctx.send(f'```css\nMoved {x.name} to {queue.name}\n```', delete_after=5)
+        except:
+           await ctx.send(f'```css\n{x.name} is not in a vc.\n```', delete_after=5)
+           continue
+
+    for y in game.team2:
+        try:
+            print('r t2')
+            bot.remove_roles(y,team2_role)
+        except:
+            continue
+            
+
+        try:
+ 
+           await bot.move_member(y, queue)
+           await ctx.send(f'```css\nMoved {y.name} to {queue.name}\n```', delete_after=5)
+        except:
+           await ctx.send(f'```css\n{y.name} is not in a vc.\n```', delete_after=5)
+           continue
+
     counter = 0
     for i in game.winning_team:
         draw.text((number2,number + counter *  counter_multiply), i.name[:12] ,(255,0,0), font=font)
@@ -3837,7 +4084,7 @@ async def endgameimage(game):
 
 
     embed = discord.Embed(colour=0xfc1016) #Red
-    ch2 = discord.utils.get(sv.channels, name="gm")
+    ch2 = discord.utils.get(sv.channels, id="731548702560354324")
     msg = await bot.send_file(ch2, 'image.png')
     embed.set_image(url=msg.attachments[0]['url'])
     print(msg.attachments[0]['url'])
@@ -3895,32 +4142,7 @@ async def endgameimage(game):
 
     await removeroles(team1_role, team2_role)
 
-    for x in game.team1:
-        try:
-           
-            bot.remove_roles(x,team1_role)
-            print('r t1')
-        except:
-            continue         
-        try:
 
-           await bot.move_member(x, queue)
-        except:
-           continue
-
-    for y in game.team2:
-        try:
-            print('r t2')
-            bot.remove_roles(y,team2_role)
-        except:
-            continue
-            
-
-        try:
- 
-           await bot.move_member(y, queue)
-        except:
-           continue
 #
 # @bot.command(pass_context = True)
 # async def testendgameimage(ctx):
@@ -4056,5 +4278,5 @@ async def help(ctx, member:discord.User = None):
 #token = "NjQ3NzkzNjc1NjkwMzExNjgx.XiXB7A.7KOKOOXMuA9sxeRLmUB6lwqoCqQ"
 #token = "NjgzNzQyMjY4NTI3NzM5MDE2.Xlv-oA.YUOmFsg5ncexCvB_76gsYiRRuRY"
 #token = "NDMzNjk0NjY5ODMxMTQzNDI1.XjnPhQ.Ml55k4NNt_UiYbMDU_UOGARPqCM"
-token = "NzI1NDcxNTg0MDAwNjcxODU0.XvPPww.jIeCnCRlut5Nk4-PDPkb3Bpgdks"
+token = "NzMyMDQ2MDE1MTIwNjcwNzgw.Xwu4_g.JDCeTGJ0YDDB87H3L8-MbkH4AWE"
 bot.run(token)
