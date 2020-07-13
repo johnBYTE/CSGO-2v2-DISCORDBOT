@@ -899,6 +899,7 @@ class Game:
         self.game_id = 0
         self.embed_msg = ''
         self.stats_msg = ''
+        self.channel = ''
         self.picks = 0
         self.update_this_tick = True
         self.playing_players = []
@@ -1046,7 +1047,7 @@ async def delete_suggestion(ctx , id):
 
 @bot.command(pass_context = True)
 async def resetleaderboard(ctx):
-    if ctx.message.author.id == "697324319751012383":
+    if ctx.message.author.id == "703369111798939658" and ctx.message.author.id != '703369111798939658':
         for i in player_list:
             i.elo = 1000
             i.wins = 0
@@ -1801,6 +1802,7 @@ async def host(ctx):
     #embed_edit1 = await bot.say(embed=embed1)
 
     game.embed_msg = embed_edit
+    game.channel = ctx.message.channel
   #  game.stats_msg = embed_edit1 
     run_for_10s = 0
     number_of_players = 4
@@ -2030,7 +2032,11 @@ async def host(ctx):
         await change_map(final_map, game.match_channel_number)
 
     except:
-        await bot.say('```css\n[DEBUG] Bot was not able to change the map as the server is down.\n```')
+
+        try:
+            await change_map(final_map, game.match_channel_number)
+        except:
+            await bot.say('```css\n[DEBUG] Bot was not able to change the map as the server is down.\n```', delete_after=4)
 
     str3 = ''
     for x in game.team1:
@@ -2049,7 +2055,7 @@ async def host(ctx):
             await bot.say(f'```css\n{x.name} has been moved to {canal1.name}.\n```', delete_after=5)
         except:
             await bot.say(f'```css\n{x.name} is not in a vc.\n```', delete_after=5)
-            continue
+            
 
 
     await asyncio.sleep(0.5)
@@ -2064,14 +2070,14 @@ async def host(ctx):
             
 
         except:
-            continue
+            print('c')
 
         try:
             await bot.move_member(y, canal2)
             await bot.say(f'```css\n{y.name} has been moved to {canal2.name}.\n```', delete_after=5)
         except:
             await bot.say(f'```css\n{y.name} is not in a vc.\n```', delete_after=5)
-            continue
+            
 
 
 
@@ -4016,37 +4022,8 @@ async def endgameimage(game):
 
     except:
         print('error')
+    msgs1  = []
 
-    for x in game.team1:
-        try:
-           
-            bot.remove_roles(x,team1_role)
-            print('r t1')
-        except:
-            continue         
-        try:
-
-           await bot.move_member(x, queue)
-           await ctx.send(f'```css\nMoved {x.name} to {queue.name}\n```', delete_after=5)
-        except:
-           await ctx.send(f'```css\n{x.name} is not in a vc.\n```', delete_after=5)
-           continue
-
-    for y in game.team2:
-        try:
-            print('r t2')
-            bot.remove_roles(y,team2_role)
-        except:
-            continue
-            
-
-        try:
- 
-           await bot.move_member(y, queue)
-           await ctx.send(f'```css\nMoved {y.name} to {queue.name}\n```', delete_after=5)
-        except:
-           await ctx.send(f'```css\n{y.name} is not in a vc.\n```', delete_after=5)
-           continue
 
     counter = 0
     for i in game.winning_team:
@@ -4135,8 +4112,8 @@ async def endgameimage(game):
   #  await bot.send_message(ch, embed=embed)
   #  await bot.send_message(ch, embed=embed2)
     await bot.delete_message(game.embed_msg)
-
     await removeroles(team1_role, team2_role)
+
 
 
 #
