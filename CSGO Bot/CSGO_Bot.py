@@ -3353,6 +3353,18 @@ async def join(ctx):
             for x in i.waiting_players:
                 if x.id == ctx.message.author.id:
                     return
+                    
+                    
+           if i.is_2v2:
+                if len(i.waiting_players) >= 4:
+                    await bot.say(f'Queue is full! {ctx.message.author.mention}', delete_after=5)
+                    return
+
+            if i.is_2v2 == False:
+                if len(i.waiting_players) >= 10:
+                    await bot.say(f'Queue is full! {ctx.message.author.mention}', delete_after=5)
+                    return                 
+                    
             i.waiting_players.append(ctx.message.author)
             #msg = await bot.say(f"{ctx.message.author.name} joined the game!")
             #await asyncio.sleep(0.1)
