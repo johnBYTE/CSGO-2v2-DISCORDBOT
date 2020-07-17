@@ -3355,7 +3355,7 @@ async def join(ctx):
                     return
                     
                     
-           if i.is_2v2:
+            if i.is_2v2:
                 if len(i.waiting_players) >= 4:
                     await bot.say(f'Queue is full! {ctx.message.author.mention}', delete_after=5)
                     return
